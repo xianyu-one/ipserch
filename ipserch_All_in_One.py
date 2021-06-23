@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #coding:utf-8
 
-import os,re,dicide
+import os,re
 
 def ips(hostlist,IPlist):
     print("读取域名列表" + hostlist)
@@ -26,11 +26,31 @@ def list_ip_path(listpath,ippath,extension):    #自动遍历文件夹
             IPlist = ippath + item
             ips(hostlist,IPlist)
 
+def dicide_path(path):    #用于检测输入路径是否带有/
+    path_back = ''
+    if path.endswith('/'):
+        path_back = path
+        return path_back
+    else:
+        path_back = path + '/'
+        return path_back
+
+def dicide_extension(extension):   #用于检测输入文件后缀是否带有.
+    extension_back = ''
+    if extension.startswith('.'):
+        extension_back = extension
+        return extension_back
+    else:
+        extension_back = '.' + extension
+        return extension_back
+
 def body(listpath_original,ippath_original,extension_original):
-    extension = dicide.dicide_extension(extension_original)    #格式化输入的文件后缀
-    listpath = dicide.dicide_path(listpath_original)    #格式化输入的域名列表文件夹路径
-    ippath = dicide.dicide_path(ippath_original)    #格式化输入的IP列表路径
+    extension = dicide_extension(extension_original)    #格式化输入的文件后缀
+    listpath = dicide_path(listpath_original)    #格式化输入的域名列表文件夹路径
+    ippath = dicide_path(ippath_original)    #格式化输入的IP列表路径
     list_ip_path(listpath,ippath,extension)
+    
+
 
 listpath_original = input('请输入域名列表文件所在文件夹路径：')
 ippath_original = input('请输入输出IP列表的文件夹路径：')
